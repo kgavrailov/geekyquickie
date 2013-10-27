@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Customer {
@@ -12,7 +11,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
-    @NotNull
+    // TODO Validation for null and length
     private String firstName;
     private String lastName;
 
@@ -27,8 +26,12 @@ public class Customer {
     public String toString() {
         return String.format(
                 "Customer[id=%d, firstName='%s', lastName='%s']",
-                id, firstName, lastName);
+                id, firstName, getLastName());
     }
+
+	public String getLastName() {
+		return lastName;
+	}
 
 }
 

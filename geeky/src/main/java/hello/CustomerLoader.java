@@ -17,6 +17,8 @@ public class CustomerLoader implements InitializingBean {
 		customers.save(new Customer("Homer", "Simpson"));
 		customers.save(new Customer("Peter", "Griffin"));
 		customers.save(new Customer("Stewie", "Griffin"));
+		customers.save(new Customer("Ivan", "Ivanov"));
+		customers.save(new Customer("Petio", "Petev"));
 		Customer customerKiro = new Customer("Kiril", "Gavrailov");
 		Customer customerVladi = new Customer("Vladislav", "Iliev");
 		customers.save(Arrays.asList(customerKiro, customerVladi));

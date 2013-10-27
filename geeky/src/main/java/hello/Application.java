@@ -2,12 +2,13 @@ package hello;
 
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 
-import java.util.List;
-
 import javax.sql.DataSource;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -18,9 +19,13 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableJpaRepositories
+@EnableAutoConfiguration
+@EnableTransactionManagement
+@ComponentScan(basePackageClasses = Application.class)
 public class Application {
 
     @Bean
@@ -32,7 +37,7 @@ public class Application {
     public CustomerLoader loadCustomers() { 
     	return new CustomerLoader();
     }
-
+    
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
@@ -61,30 +66,13 @@ public class Application {
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(Application.class);
         CustomerRepository repository = context.getBean(CustomerRepository.class);
 
-        // fetch all customers
-        Iterable<Customer> customers = repository.findAll();
-        System.out.println("Customers found with findAll():");
-        System.out.println("-------------------------------");
-        for (Customer customer : customers) {
-            System.out.println(customer);
-        }
-        System.out.println();
+        // TODO fetch all customers
 
-        // fetch an individual customer by ID
-        Customer customer = repository.findOne(1L);
-        System.out.println("Customer found with findOne(1L):");
-        System.out.println("--------------------------------");
-        System.out.println(customer);
-        System.out.println();
+        // TODO fetch an individual customer by ID
 
-        // fetch customers by last name
-        List<Customer> bauers = repository.findByLastName("Bauer");
-        System.out.println("Customer found with findByLastName('Bauer'):");
-        System.out.println("--------------------------------------------");
-        for (Customer bauer : bauers) {
-            System.out.println(bauer);
-        }
-
+        // TODO fetch customers by last name
+        
+        // TODO save customer with invalid name
         context.close();
     }
 
